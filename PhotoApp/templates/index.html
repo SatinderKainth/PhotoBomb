@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+    crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <title>Document</title>
+</head>
+<body>
+    <div class="image">
+    <img src="../media/user_images/logo.jpg" alt="PhotoBomb! logo" width="200px" height="200px">
+    </div>
+    <div class="container">
+        <div class="video my-4 text-center">
+            <video controls autoplay muted> 
+            {% load static %}
+            
+                <source src="{% static 'video/photo.mp4' %}" type="video/mp4">
+            </video>
+        </div>
+        <div id="wrapper">
+        <h1 >PhotoBomb!</h1>
+        <h2>Free storage and organization for all your memories.</h2>
+        <p>Store, organize, and view your photos with an easy to use web interface.</p>
+        <a class="btn btn-lg shadow-lg m-3 btn-primary" href="/sign_in">Go To PhotoBomb!</a>
+        
+    </div>
+    {% comment %} <div class="container">
+        <div class="row">
+            <div class="col col-md-6">
+                <img src="/media/logo.jpg" alt="logo">
+            </div>
+
+            <div class="col col-md-3" style="margin-left:400px">
+            <button> <a href ="/sign_in">Sign In </a></button>
+            <button> <a href ="/register">New User</a></button>
+            </div>
+        </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-12" style="margin:20px" >
+                <h1>Welcome To the PhotoBomb</h1>
+            </div>
+        </div>
+    </div>
+
+    </div> {% endcomment %}
+    </div>
+</body>
+</html>

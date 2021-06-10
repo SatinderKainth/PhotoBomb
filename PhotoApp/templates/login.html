@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" 
+    crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"> 
+    <script
+    src="https://code.jquery.com/jquery-3.6.0.js"
+    integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+    crossorigin="anonymous"></script>
+    <script src="project.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <h1> Welcome, {{ user.f_name }} to the PhotoBomb!</h1>
+    </div>
+    
+    <div>
+    <form action="/search/{{user.id}}" method="POST" title="Seach by title or description">
+    {% csrf_token %}
+        <div class="input-group">
+            <input class="form-control" type="text" name="search">
+                <div class="input-group-append">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </div>
+        </div>
+    </form>
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" 
+        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
+        aria-expanded="false">Create an Album </button>
+            <div class="dropdown-menu" >
+                <form  action="/album" method="POST">
+                    {% csrf_token %}
+                    <div>
+                        <label for="name">Album Name: </label>
+                        <input type="text" name="name" id="name" >
+                    </div>
+                    <div>
+                        <label for="info">Info</label>
+                        <input type="text" name="info" id="info" >
+                    </div>
+                        <button type="submit" class="btn btn-primary">Create Album</button>
+                </form>
+            </div>
+    </div>
+        <div>
+            <h1>Add Images</h1>
+            <form action="/add-image" method ="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+                Add Image: <input type="file" name="image">
+                <button>Submit</button>
+            </form>
+        </div>
+
+                <h2>Image</h2>
+                {% for image in images%}
+                    <a target="_blank" href="{{ image.file.url }}">
+                        <img src ="{{ image.file.url }}" id ="img"alt="" width="200px" height="200px">
+                    </a>
+                    <button onclick="show()">Click</button>
+                {% endfor %}
+                
+            <div class="dropdown">
+                        <button class="dropbtn">Click to see Profile</button>
+                            <div class="dropdown-content">
+                                <form action="/profile" method="POST">
+                                {{ user.f_name }}
+                                <a href="edit/{{user.id}}/update">Edit Profile</a>
+                                <a href="/password/">Change Password</a>
+                                </form>
+                            </div>
+                    </div> 
+                <a class="btn btn-primary" href="/logout" role="button">Logout</a>
+            
+</body>
+</html>
+
+{% comment %} {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %} {% endcomment %}
+        {% comment %} <div class="row">
+            <div class="col col-md-3" style="margin-left:800px">
+                    <div class="dropdown">
+                        <button class="dropbtn">Click to see Profile</button>
+                            <div class="dropdown-content">
+                                <form action="/profile" method="post">
+                                {{ user.f_name }}
+                                <a href="edit/{{user.id}}">Edit Profile</a>
+                                <a href="/password/">Change Password</a>
+                                </form>
+                            </div>
+                    </div> 
+    
+
+            </div>
+            <div class="col col-md-3" style="margin-left:1000px">
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+            <div class="upload">
+                <form action="/sign_in" method="post">
+                    {% csrf_token %}
+                    <input type ="file" id="myFile" name="fileName">
+                    <input type="submit">
+                </form>
+            </div>    
+        </div> {% endcomment %}

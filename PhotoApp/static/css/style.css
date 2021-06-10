@@ -1,0 +1,72 @@
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+p,
+blockquote,
+table,
+th,
+td,
+embed,
+object {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+.container{
+    text-align: center;
+}
+body{
+    background-color: burlywood;
+    background-repeat: no-repeat;
+
+    /* text-align: center; */
+}
+video{
+    width: 100%;
+    height:100%;
+}
+.wrapper{
+    background-color: cadetblue;
+}
+.dropdown-menu{
+    width: 300px;
+}
+.dropdown-content{
+    display:none;
+    background-color: red;
+}
+.dropdown-content a {
+    color:blue;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {
+    background-color: blueviolet;
+}
+.dropdown:hover .dropdown-content {
+    display:block;
+}
+.dropdown:hover .dropbtn {
+    background-color: darkmagenta;
+}
+.error{
+    color: red;
+}
+.image{
+    margin: 10px;
+}

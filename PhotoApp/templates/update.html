@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
+    <title>Document</title>
+</head>
+<body>
+    <h1> Edit Profile : {{ user.f_name }} </h1>
+    <h3>First Name: {{user.f_name}}</h3>
+    <h3>Last name: {{ user.l_name }}</h3>
+    <h3>Email: {{ user.email }}</h3></hr>
+    <form action="/edit/{{ user.id }}/update" method="post">
+    {% csrf_token %}
+        
+        <label type="f_name">First name</label>
+        <input type="text" name="f_name" id="f_name" value="{{ user.f_name }}">
+
+        <label type="l_name">Last name</label>
+        <input type="text" name="l_name" id ="l_name" value="{{ user.l_name }}">
+
+        <label type="email">Email</label>
+        <input type="email" name="email" id="email" value="{{ user.email }}">
+
+        <button type="submit">Submit</button>
+
+        Last name: {{user.l_name}}
+
+        {% comment %} <label type="f_name">First Name</label>
+        <input type="text" name="f_name" id="f_name">
+
+        <label type="l_name">Last Name</label>
+        <input type="text" name="l_name" id ="l_name">
+
+        <label type="email">Email</label>
+        <input type="email" name="email" id="email">
+
+        <button type="submit">Submit</button> {% endcomment %}
+    </form>
+</body>
+</html>
