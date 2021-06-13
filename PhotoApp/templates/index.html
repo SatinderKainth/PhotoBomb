@@ -12,24 +12,22 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="image">
-    <img src="../media/user_images/logo.jpg" alt="PhotoBomb! logo" width="200px" height="200px">
-    </div>
-    <div class="container">
-        <div class="video my-4 text-center">
-            <video controls autoplay muted> 
+    {% comment %} <div class="container1">
+    <img src="../media/user_images/logo.jpg" alt="PhotoBomb! logo" width="200px" height="200px"> {% endcomment %}
+    
+            <video controls autoplay loop id="video"> 
             {% load static %}
-            
-                <source src="{% static 'video/photo.mp4' %}" type="video/mp4">
+                <source src="{% static 'video/photoApp.mp4' %}" type="video/mp4">
             </video>
+        <div class="content">
+            <div id="wrapper">
+
+                <h1><img src="../media/user_images/logo.jpg" alt="PhotoBomb! logo" width="100px" height="100px">PhotoBomb!</h1>
+                <h2>Free storage and organization for all your memories.</h2>
+                <p>Store, organize, and view your photos with an easy to use web interface.</p>
+                <a class="btn btn-lg shadow-lg m-3 btn-primary" href="/sign_in">Go To PhotoBomb!</a>
+            </div>
         </div>
-        <div id="wrapper">
-        <h1 >PhotoBomb!</h1>
-        <h2>Free storage and organization for all your memories.</h2>
-        <p>Store, organize, and view your photos with an easy to use web interface.</p>
-        <a class="btn btn-lg shadow-lg m-3 btn-primary" href="/sign_in">Go To PhotoBomb!</a>
-        
-    </div>
     {% comment %} <div class="container">
         <div class="row">
             <div class="col col-md-6">

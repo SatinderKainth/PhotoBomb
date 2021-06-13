@@ -11,8 +11,11 @@ urlpatterns = [
     path('home',views.success),
     path('logout',views.logout),
     path('edit/<int:user_id>/update',views.edit_profile),
-    #path('update/<int:user_id>',views.update),
-    path('add-image',views.add_image),
-    path('search/<int:user_id>',views.search),
-    path('album',views.album)
+    path('add-image/<int:id>',views.add_image),
+    path('delete_photo/<int:id>',views.delete_photo),
+    path('gallery',views.gallery),
+    path('photo/<int:id>/', views.viewPhoto),
+    path('add',views.addPhoto),
+    path('delete_profile/<int:user_id>',views.delete_profile),
+
 ]

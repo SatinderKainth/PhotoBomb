@@ -50,7 +50,7 @@ def new(request):
         new_user = User.objects.register(request.POST)
         request.session['user_id'] = new_user.id
         messages.success(request, "You have successfully registered!")
-        return redirect('/home')
+        return redirect('/sign_in')
     ''' if request.method =="GET":
         new_user = User.objects.create(
         f_name = request.POST['f_name'],l_name=request.POST['l_name'],
@@ -88,36 +88,50 @@ def edit_profile(request,user_id):
     }
     return render(request,'update.html',context)
 
-''' def update(request, user_id):
-    update = User.objects.get(id=request.session['user_id'])
-    update.f_name = request.POST['f_name']
-    update.l_name = request.POST['l_name']
-    update.email = request.POST['email']
-    update.save()
-    return redirect('/edit') '''
-
-def add_image(request):
+def add_image(request,id):
     if request.method == "POST":
-        new_file =Upload(file = request.FILES['image'])
-        #print("@@@@",new_file)
+        new_file =Upload(file=request.FILES['image'])
         new_file.save()
     return redirect("/welcome")
+
+
+def gallery(request):
     
-
-def search(request,user_id):
-    if 'user_id' not in request.session:
-        return redirect('/login')
-    search = Upload.file(id=request.session['user_id'])
+    album = request.GET.get('album')
+    if album =="":
+        uploads = Upload.objects.all()
+    else:
+        uploads = Upload.objects.filter(album__name==album)
+    user_album = Album.objects.filter(user=user)
     context ={
-        "search":search
+            "to_album":user_album,
+            "uploads":uploads
     }
-    return render(request,'login.html',context)
+    return render(request,'gallery.html')
 
-def album(request):
-    if 'user_id' not in request.session:
-        return redirect('/login')
-    new_album = Album.new(request.session['user_id'],request.POST['name'],request.POST['info'])
+def viewPhoto(request,id):
+    upload = Upload.objects.get(id=id)
     context={
-        'new_album':new_album
+        "upload":upload
     }
-    return render(request,'login.html',context)
+    return render(request,'photo.html',context)
+
+def delete_photo(request,id):
+    to_delete = Upload.objects.get(id=id)
+    to_delete.delete()     
+    return redirect("/welcome")
+    
+def addPhoto(request):
+    if request.method=="POST":
+        file = request.POST.get('file')
+        info = request.POST['info']
+        add= Upload.objects.create(file=file,info=info)
+        
+    return render(request,'add.html')
+
+def delete_profile(request,user_id):
+    if not'user_id' in request.session:
+        return redirect("/")
+    delete = User.objects.get(id=request.session['user_id'])
+    delete.delete()
+    return redirect("/")

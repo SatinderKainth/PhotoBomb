@@ -43,33 +43,32 @@ class UserManager(models.Manager):
             pwd = password,
         )
         
+    
+    
 class User(models.Model):
     f_name = models.CharField(max_length=45)
     l_name = models.CharField(max_length=45)
     email = models.EmailField(unique=True)
     pwd = models.CharField(max_length=255)
-    created_at= models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    created_at= models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = UserManager()
-    
-class Upload(models.Model):
-    file = models.FileField(upload_to="user_images")
-    #user = models.OneToOneField("User",on_delete=models.CASCADE,default="None")
-    user = models.ManyToManyField(User,related_name="uploads")
-    #video = models.FileField(upload_to="user_video",verbose_name="")
-    created_at= models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+
     
 class Album(models.Model):
     name = models.CharField(max_length=100)
-    info = models.TextField(max_length=200)
-    users = models.ForeignKey(User,related_name="albums",on_delete=models.CASCADE) 
-    created_at= models.DateTimeField(auto_now=True)
-    updated_at = models.DateTimeField(auto_now_add=True)
+    #user = models.ForeignKey(User,related_name="albums",on_delete=models.CASCADE, default="")
+    user = models.ForeignKey(User,related_name="user_album",on_delete=models.SET_NULL,null=True) 
+    created_at= models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True) 
     
-    def search(self,name,info,find):
-        to_find =Upload.file.filter(Album.name('%'+find+'%'),Album.info('%'+find+'%'))
-        for image in to_find:
-            User.uploads.append(User)
-        return image
+class Upload(models.Model):
+    file = models.FileField(upload_to="user_images")
+    info = models.TextField(max_length=200)
+    #user = models.OneToOneField("User",on_delete=models.CASCADE,default="")
+    #user = models.ManyToManyField(User,related_name="uploads")
+    album = models.ForeignKey(Album,related_name="uploads",on_delete=models.SET_NULL,null=True)
+    #video = models.FileField(upload_to="user_video",verbose_name="")
+    created_at= models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
