@@ -51,16 +51,6 @@ def new(request):
         request.session['user_id'] = new_user.id
         messages.success(request, "You have successfully registered!")
         return redirect('/sign_in')
-    ''' if request.method =="GET":
-        new_user = User.objects.create(
-        f_name = request.POST['f_name'],l_name=request.POST['l_name'],
-        email=request.POST['email'],
-        pwd=request.POST['pwd'])
-        context ={
-            "new_user": new_user
-        }
-        return render(request,'home.html',context)
-    return redirect('/home') '''
 
 def success(request):
     if 'user_id' not in request.session:
@@ -88,26 +78,13 @@ def edit_profile(request,user_id):
     }
     return render(request,'update.html',context)
 
-def add_image(request,id):
+def add_image(request,user_id):
     if request.method == "POST":
-        new_file =Upload(file=request.FILES['image'])
+        new_file = Upload(file=request.FILES['image'])
+        print(f"Image:{new_file}")
         new_file.save()
     return redirect("/welcome")
 
-
-def gallery(request):
-    
-    album = request.GET.get('album')
-    if album =="":
-        uploads = Upload.objects.all()
-    else:
-        uploads = Upload.objects.filter(album__name==album)
-    user_album = Album.objects.filter(user=user)
-    context ={
-            "to_album":user_album,
-            "uploads":uploads
-    }
-    return render(request,'gallery.html')
 
 def viewPhoto(request,id):
     upload = Upload.objects.get(id=id)
@@ -120,14 +97,6 @@ def delete_photo(request,id):
     to_delete = Upload.objects.get(id=id)
     to_delete.delete()     
     return redirect("/welcome")
-    
-def addPhoto(request):
-    if request.method=="POST":
-        file = request.POST.get('file')
-        info = request.POST['info']
-        add= Upload.objects.create(file=file,info=info)
-        
-    return render(request,'add.html')
 
 def delete_profile(request,user_id):
     if not'user_id' in request.session:
