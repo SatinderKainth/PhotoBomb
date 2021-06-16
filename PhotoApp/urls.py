@@ -15,4 +15,5 @@ urlpatterns = [
     path('delete_photo/<int:id>',views.delete_photo),
     path('photo/<int:id>/', views.viewPhoto),
     path('delete_account/<int:user_id>',views.delete_profile),
+
 ]

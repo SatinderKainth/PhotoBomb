@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -78,12 +79,27 @@ def edit_profile(request,user_id):
     }
     return render(request,'update.html',context)
 
-def add_image(request,user_id):
+''' def add_image(request,user_id):
     if request.method == "POST":
         new_file = Upload(file=request.FILES['image'])
         print(f"Image:{new_file}")
         new_file.save()
-    return redirect("/welcome")
+    return redirect("/welcome") '''
+    
+def add_image(request,user_id):
+    if 'user_id' not in request.session:
+        return redirect("/welcome")
+    user = User.objects.get(id=request.session['user_id'])
+    new_file = Upload(file = request.FILES['image'])
+    new_file.save()
+    images = Upload.objects.all()
+    context = {
+        "user" : user,
+        "new_file":new_file,
+        "images":images
+    }
+    return render(request,'login.html',context)
+
 
 
 def viewPhoto(request,id):

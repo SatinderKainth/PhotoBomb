@@ -66,7 +66,7 @@ class User(models.Model):
 class Upload(models.Model):
     file = models.FileField(upload_to="user_images")
     info = models.TextField(max_length=200)
-    user = models.ForeignKey(User, related_name="users",on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.ForeignKey(User,on_delete=models.SET_NULL,null=True)
     created_at= models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     #user = models.ForeignKey(User,related_name="users",on_delete=models.CASCADE)
